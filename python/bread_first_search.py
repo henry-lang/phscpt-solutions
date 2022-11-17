@@ -1,8 +1,31 @@
-n, v, e = map(int, input().split())
-graph = [[]] * v
-bread = map(int, input().split())
-for i in range(e):
-    first, second = map(lambda x: x - 1, map(int, input().split()))
-    print(graph[first])
-    graph[second].append(first)
-print(graph)
+from collections import defaultdict, deque
+
+def read_ints():
+    return map(int, input().split())
+
+n, v, e = read_ints()
+bread = list(read_ints())
+graph = defaultdict(list)
+
+# adj list
+for _ in range(e):
+    a, b = map(lambda x: x - 1, read_ints())
+    graph[a].append(b)
+    graph[b].append(a)
+
+# bfs (pos, bread, visited, depth)
+q = deque([(0, 0, set([0]), 0)])
+
+while q:
+    state = q.popleft()
+    for other in graph[state[0]]:
+        if state[1] >= n:
+            print(state[3])
+            exit()
+        if other not in state[2]:
+            new_state = set(state[2])
+            new_state.add(state[0])
+
+            q.append((other, state[1] + bread[other], new_state, state[3] + 1))
+
+print(-1)
