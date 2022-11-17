@@ -10,6 +10,8 @@ graph = defaultdict(list)
 # adj list
 for _ in range(e):
     a, b = map(lambda x: x - 1, read_ints())
+    if a == b:
+        continue
     graph[a].append(b)
     graph[b].append(a)
 
