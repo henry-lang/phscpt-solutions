@@ -18,6 +18,7 @@ for (y, row) in enumerate(grid):
 q = deque([(start, set([start]))])
 while q:
     state = q.popleft()
+    print(state)
     moves = []
     dirs = [(-1, 0), (1, 0), (0, -1), (0, 1)]
     for i in range(4):
